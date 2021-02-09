@@ -34,7 +34,8 @@ solubloss.plot.inoc.mesh.prov <- ggplot(solub.inoc.mesh.prov.mult, aes(x = soil.
   geom_text(aes(y = emmean+SE, label = .group, hjust = .6, vjust = -.4), position=position_dodge(width=0.7), show.legend = FALSE) +
   scale_x_discrete(labels= c("AM", "EcM")) +
   facet_grid(~inoc.prov, labeller = as_labeller(c('AM'= 'Residence in AM forest', 'ECM'= 'Residence in EcM forest'))) +
-  scale_fill_manual(name="Mycorrhizal\nhyphae\nexcluded", labels=c("Yes", "No"), values = c("#d7191c", "#f7f7f7")) +
+  #scale_fill_manual(name="Mycorrhizal\nhyphae\nexcluded", labels=c("Yes", "No"), values = c("#d7191c", "#f7f7f7")) +
+  scale_fill_manual(name="Pore size\nmesh", labels=c(expression("1 "~mu~"m"), expression("44 "~mu~"m")), values = c("darkgrey", "#f7f7f7")) +
   labs(x="Soil provenance", y= "Litter soluble content loss (%)") +
   theme(panel.grid.major.x = element_blank())
 # Color strip
@@ -66,7 +67,8 @@ hemicelloss.plot.inoc.mesh.prov <- ggplot(hemicel.inoc.mesh.prov.mult, aes(x = s
   geom_text(aes(y = emmean+SE, label = .group, vjust = -.4), position=position_dodge(width=0.7), show.legend = FALSE) +
   scale_x_discrete(labels= c("AM", "EcM")) +
   facet_grid(~inoc.prov, labeller = as_labeller(c('AM'= 'Residence in AM forest', 'ECM'= 'Residence in EcM forest'))) +
-  scale_fill_manual(name="Mycorrhizal\nhyphae\nexcluded", labels=c("Yes", "No"), values = c("#d7191c", "#f7f7f7")) +
+  scale_fill_manual(name="Pore size\nmesh", labels=c(expression("1 "~mu~"m"), expression("44 "~mu~"m")), values = c("darkgrey", "#f7f7f7")) +
+  #scale_fill_manual(name="Mycorrhizal\nhyphae\nexcluded", labels=c("Yes", "No"), values = c("#d7191c", "#f7f7f7")) +
   labs(x="Soil provenance", y= "Litter hemicellulose loss (%)") +
   theme(panel.grid.major.x = element_blank())
 # Color strip
@@ -100,7 +102,8 @@ celloss.plot.inoc.mesh.prov <- ggplot(cel.inoc.mesh.prov.mult, aes(x = soil.type
   geom_text(aes(y = emmean+SE, label = .group, vjust = -.4), position=position_dodge(width=0.7), show.legend = FALSE) +
   scale_x_discrete(labels= c("AM", "EcM")) +
   facet_grid(~inoc.prov, labeller = as_labeller(c('AM'= 'Residence in AM forest', 'ECM'= 'Residence in EcM forest'))) +
-  scale_fill_manual(name="Mycorrhizal\nhyphae\nexcluded", labels=c("Yes", "No"), values = c("#d7191c", "#f7f7f7")) +
+  scale_fill_manual(name="Pore size\nmesh", labels=c(expression("1 "~mu~"m"), expression("44 "~mu~"m")), values = c("darkgrey", "#f7f7f7")) +
+  #scale_fill_manual(name="Mycorrhizal\nhyphae\nexcluded", labels=c("Yes", "No"), values = c("#d7191c", "#f7f7f7")) +
   labs(x="Soil provenance", y= "Litter cellulose loss (%)") +
   theme(panel.grid.major.x = element_blank())
 # Color strip
@@ -134,7 +137,8 @@ ligloss.plot.inoc.mesh.prov <- ggplot(lig.inoc.mesh.prov.mult, aes(x = soil.type
   geom_text(aes(y = emmean+SE, label = .group, vjust = -.4), position=position_dodge(width=0.7), show.legend = FALSE) +
   scale_x_discrete(labels= c("AM", "EcM")) +
   facet_grid(~inoc.prov, labeller = as_labeller(c('AM'= 'Residence in AM forest', 'ECM'= 'Residence in EcM forest'))) +
-  scale_fill_manual(name="Mycorrhizal\nhyphae\nexcluded", labels=c("Yes", "No"), values = c("#d7191c", "#f7f7f7")) +
+  scale_fill_manual(name="Pore size\nmesh", labels=c(expression("1 "~mu~"m"), expression("44 "~mu~"m")), values = c("darkgrey", "#f7f7f7")) +
+  #scale_fill_manual(name="Mycorrhizal\nhyphae\nexcluded", labels=c("Yes", "No"), values = c("#d7191c", "#f7f7f7")) +
   labs(x="Soil provenance", y= "Litter lignin loss (%)") +
   theme(panel.grid.major.x = element_blank())
 # Color strip
