@@ -64,6 +64,24 @@ WT.plot.mult.type.horiz.time <- ggplot(WT.mult.type.horiz.time, aes(x = horizon,
   labs(x="Horizons", y= "Mass loss (%)") +
   theme(panel.grid.major.x = element_blank())
 
+## HFA figure
+WT <- emmeans(mod.wt, pairwise ~ inoc.prov*soil.type.prov*mesh*time, adjust = "tukey") #only time:inoc.prov significant 
+WT.mult <- CLD(WT, alpha=0.05, Letters=letters, adjust="tukey", reversed = TRUE)
+WT.mult$.group <- gsub('\\s+', '', WT.mult$.group)
+WT.mult$time <- gsub('1', 'one', WT.mult$time)
+WT.mult$time <- gsub('2', 'two', WT.mult$time)
+
+WT.plot.mult.type.horiz.inoc <- ggplot(WT.mult, aes(x = soil.type.prov, y = emmean, fill = inoc.prov)) + 
+  geom_bar(stat = "identity", colour="black", position=position_dodge(width = .7), width = .6) +
+  geom_errorbar(aes(ymin = emmean-SE, ymax = emmean+SE), position=position_dodge(width=0.7), width = .2, size = .5) +
+  geom_text(aes(y = emmean+SE, label = .group, vjust = -.4), position=position_dodge(width=0.7), show.legend = FALSE) +
+  ylim(c(0,43)) +
+  facet_grid(mesh~time, labeller = as_labeller(c('one'= 'After one year', 'two'= 'After two years', '1'= '1', '44'='44')))+#, 'apetit'= expression(paste(delta^{15},'N', ' (‰)')), 'bgrand'= 'mesh 44'))) +
+  scale_fill_manual(name="Forest of\nincubation", labels=c("AM", "EcM"), values = c("#b2df8a", "#33a02c")) +
+  scale_x_discrete( labels=c("AM", "EcM")) +
+  labs(x="Soil provenance", y= "Mass loss (%)") +
+  theme(panel.spacing=unit(0, "lines"), strip.text.y = element_text(angle = 0), panel.grid.major.x = element_blank(), text = element_text(family = 'Times'), strip.background = element_rect(fill="white"))
+
 ## Model for ECM forest ####
 ECM <- subset(t2_ave, inoc.prov == "ECM")
 mod.wt.ecm <- lme(wt_loss ~ soil.type.prov*horizon + mesh*horizon, random = ~ 1|block, weights = varPower(), data = ECM)
@@ -79,7 +97,8 @@ WTloss.plot.mesh.horiz.ecm <- ggplot(WT.mult.mesh.horiz.ecm, aes(x = horizon, y 
   geom_errorbar(aes(ymin = emmean-SE, ymax = emmean+SE), position=position_dodge(width=0.7), width = .2, size = .5) +
   geom_text(aes(y = emmean+SE, label = .group, hjust = .5, vjust = -.4), position=position_dodge(width=0.7), show.legend = FALSE) +
   ylim(c(0,54)) +
-  scale_fill_manual(name="Mycorrhizal\nhyphae\nexcluded", labels=c("Yes", "No"), values = c("#d7191c", "#f7f7f7")) +
+  #scale_fill_manual(name="Mycorrhizal\nhyphae\nexcluded", labels=c("Yes", "No"), values = c("#d7191c", "#f7f7f7")) +
+  scale_fill_manual(name="Pore size\nmesh", labels=c(expression("1 "~mu~"m"), expression("44 "~mu~"m")), values = c("darkgrey", "#f7f7f7")) +
   labs(x="Horizons", y= "Mass loss in EcM forest (%)")
 
 ## Exclusion
@@ -109,7 +128,8 @@ WTloss.plot.mesh.horiz.am <- ggplot(WT.mult.mesh.horiz.am, aes(x = horizon, y = 
   geom_errorbar(aes(ymin = emmean-SE, ymax = emmean+SE), position=position_dodge(width=0.7), width = .2, size = .5) +
   geom_text(aes(y = emmean+SE, label = .group, hjust = .5, vjust = -.4), position=position_dodge(width=0.7), show.legend = FALSE) +
   ylim(c(0,54)) +
-  scale_fill_manual(name="Mycorrhizal\nhyphae\nexcluded", labels=c("Yes", "No"), values = c("#d7191c", "#f7f7f7")) +
+  #scale_fill_manual(name="Mycorrhizal\nhyphae\nexcluded", labels=c("Yes", "No"), values = c("#d7191c", "#f7f7f7")) +
+  scale_fill_manual(name="Pore size\nmesh", labels=c(expression("1 "~mu~"m"), expression("44 "~mu~"m")), values = c("darkgrey", "#f7f7f7")) +
   labs(x="Horizons", y= "Mass loss in AM forest (%)")
 
 ## Exclusion

@@ -54,7 +54,7 @@ LN_ave <- t1t2_ave %>%
   mutate(ligN_change = ligN/ligN_t) %>% 
   subset(horizon == "Litter")
 
-mod.LN <- lme(ligN_change ~ soil.type.prov*mesh*inoc.prov, random = ~ 1|block,
+mod.LN <- lme(ligN_change ~ soil.type.prov*mesh*inoc.prov*time, random = ~ 1|block,
               weights =  NULL, data = LN_ave)
 anova(mod.LN)
 plot(mod.LN)
@@ -71,17 +71,6 @@ LN.plot.mult.horiz.prov.mesh <- ggplot(LN.mult.horiz.prov.mesh, aes(x = soil.typ
   labs(x="Soil provenance ", y= "Litter lignin:N ratio change") +
   scale_x_discrete(labels= c("AM", "EcM")) +
   scale_y_continuous(labels = function(y) y + 1, limits = c(-0.1,0.23))
-# Color strip
-g <- ggplot_gtable(ggplot_build(LN.plot.mult.horiz.prov.mesh))
-strip_both <- which(grepl('strip-', g$layout$name))
-fills <- c("#b2df8a","#33a02c")
-k <- 1
-for (i in strip_both) {
-  j <- which(grepl('rect', g$grobs[[i]]$grobs[[1]]$childrenOrder))
-  g$grobs[[i]]$grobs[[1]]$children[[j]]$gp$fill <- fills[k]
-  k <- k+1
-}
-grid.draw(g, recording=TRUE)
 
 ## d15N ####
 d15N_ave <- t1t2_ave %>%  
